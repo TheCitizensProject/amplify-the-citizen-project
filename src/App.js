@@ -145,7 +145,7 @@ const App = ({ signOut }) => {
         </Flex>
       ))}
       </View> */}
-      <Button onClick={signOut}>Sign Out (DEV123 )</Button>
+      <Button onClick={signOut}>Sign Out (DEV1 )</Button>
     </View>
   );
 };
