@@ -146,7 +146,7 @@ const App = ({ signOut }) => {
       ))}
       </View> */}
 
-      <Button onClick={signOut}>Sign Out (Push to Dev )</Button>
+      <Button onClick={signOut}>Sign Out (Test Deployment to Dev )</Button>
 
     </View>
   );
