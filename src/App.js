@@ -1,52 +1,63 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import "@aws-amplify/ui-react/styles.css";
-import { API, Storage } from 'aws-amplify';
-import {
-  Button,
-  Heading,
-  Image,
-  Text,
-  TextField,
-  View,
-  withAuthenticator,
-} from '@aws-amplify/ui-react';
-import { DataStore } from '@aws-amplify/datastore';
-import { Note } from './models';
-import  NavBar  from './ui-components/NavBar';
+import React, { useState } from 'react';
+import { Amplify, API  } from 'aws-amplify';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
 
+ 
 
-const App = ({ signOut }) => {
-  const [notes, setNotes] = useState([]);
+function App({ signOut, user }) {
+ const [info, setInfo] = useState([]);
+ const [Notification, setNotification] = useState("")
 
-  useEffect(() => {
-    fetchNotes();
-  }, []);
+const getUserItems = async () =>  {
+    const data = await API.get('MainApi', '/items/' + user.username, {})
+    setInfo(data)
+    setNotification("Data has been retrived")
+    setTimeout(() => {setNotification("")},6000)
+}
 
-  async function fetchNotes() {
-    // const apiData = await API.graphql({ query: listNotes });
-    // const notesFromAPI = apiData.data.listNotes.items;
-    // await Promise.all(
-    //   notesFromAPI.map(async (note) => {
-    //     if (note.image) {
-    //       const url = await Storage.get(note.name);
-    //       note.image = url;
-    //     }
-    //     return note;
-    //   })
-    // );
-    // setNotes(notesFromAPI);
-    const notes = await DataStore.query(Note);
-    console.log(notes);
-  }
+const addItem = async (itemName) => {
+  const response = await API.post('MainApi', '/items', {
+      body: {
+          timestamp: new Date().getTime(),
+          user: user.username,
+          itemName
+      }
+  })
+  setNotification("Item has been added")
+  setTimeout(() => {setNotification("")},6000)
+}
+
+const deleteItem = async(timestamp) => {
+  const response = await API.del('MainApi', '/items/object/' + user.username + '/' + timestamp, {})
+  
+  setNotification("Item has been deleted")
+  setTimeout(() => {setNotification("")},6000)
+}
 
   return (
-    <View className="App">
-      <NavBar />
-      <Heading level={1}>The Citizen Advocates</Heading>
-      <Button onClick={signOut}>Sign Out (test123 )</Button>
-    </View>
+    <div>
+      <h1>Hello {user.username}</h1>
+      <p>{Notification}</p>
+      <button onClick={() => getUserItems()}> Get Data</button>
+      <button onClick={() => addItem("tehe")}> Add Data</button>
+      <p>        <label>
+          Enter Time Stamp to Delete:
+          <input type="text" id="timestamp" />
+        </label>
+        <button onClick={() => deleteItem(document.getElementById("timestamp").value)}> Delete Data</button>  
+        </p>
+      
+      <button onClick={signOut}>Sign out</button>
+      
+      {info.map(SingleInfo => {
+        return <p>{JSON.stringify(SingleInfo)}</p> 
+      })}
+      
+    </div>
   );
-};
+}
 
 export default withAuthenticator(App);
