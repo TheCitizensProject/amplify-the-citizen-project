@@ -1,29 +1,30 @@
 {
   "api": {
-    "amplifythecitizenpro": {
-      "dependsOn": [],
-      "output": {
-        "authConfig": {
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "AWS_IAM"
-            }
+    "MainApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
           ],
-          "defaultAuthentication": {
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 30,
-              "description": "api key description"
-            },
-            "authenticationType": "API_KEY"
-          }
+          "category": "function",
+          "resourceName": "infoFunction"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "databaseFunction"
         }
-      },
+      ],
       "providerPlugin": "awscloudformation",
-      "service": "AppSync"
+      "service": "API Gateway"
     }
   },
   "auth": {
-    "amplifythecitizenpro7bf8f5ff": {
+    "awsamplifyworkshopc04b8172": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -48,11 +49,71 @@
       "service": "Cognito"
     }
   },
-  "storage": {
-    "imagestorage": {
+  "function": {
+    "databaseFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "items"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "infoFunction": {
+      "build": true,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
-      "service": "S3"
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_databaseFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "databaseFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_databaseFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "databaseFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_infoFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "infoFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_infoFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "infoFunction"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "items": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
     }
   }
 }
