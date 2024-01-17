@@ -13,6 +13,10 @@
   }
 }
 
+.DataForm {
+  padding: 10px;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -35,4 +39,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.custom-datepicker {
+  border: 2px solid white !important; /* Change the border color here */
+  /* background-color: aliceblue; */
+  color: white !important;
+}
+
+.custom-datepicker label.MuiFormLabel-root {
+  color: white; /* Change the label color here */
+  margin-top: -8px;
 }

@@ -16,11 +16,19 @@
       "function": {
         "infoFunction": {
           "deploymentBucketName": "amplify-awsamplifyworkshop-devlamda-165054-deployment",
-          "s3Key": "amplify-builds/infoFunction-616e3372467446503038-build.zip"
+          "s3Key": "amplify-builds/infoFunction-36715274796e455a366a-build.zip"
         },
         "databaseFunction": {
           "deploymentBucketName": "amplify-awsamplifyworkshop-devlamda-165054-deployment",
-          "s3Key": "amplify-builds/databaseFunction-4f664b446c584a6b7272-build.zip"
+          "s3Key": "amplify-builds/databaseFunction-68507357745355564677-build.zip"
+        },
+        "GraphFunction": {
+          "deploymentBucketName": "amplify-awsamplifyworkshop-devlamda-165054-deployment",
+          "s3Key": "amplify-builds/GraphFunction-61384165387659394236-build.zip"
+        },
+        "GraphDbFunction": {
+          "deploymentBucketName": "amplify-awsamplifyworkshop-devlamda-165054-deployment",
+          "s3Key": "amplify-builds/GraphDbFunction-7742782f484e5a37726d-build.zip"
         }
       },
       "auth": {
@@ -30,7 +38,8 @@
         "MainApi": {}
       },
       "storage": {
-        "items": {}
+        "items": {},
+        "Graph": {}
       }
     }
   }

@@ -1,0 +1,14 @@
+{
+  "resourceName": "Graph",
+  "tableName": "GraphData",
+  "partitionKey": {
+    "fieldName": "Email",
+    "fieldType": "string"
+  },
+  "sortKey": {
+    "fieldName": "SurveyDate",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

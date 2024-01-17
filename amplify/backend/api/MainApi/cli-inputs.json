@@ -23,6 +23,29 @@
           "delete"
         ]
       }
+    },
+    "/graph": {
+      "name": "/graph",
+      "lambdaFunction": "GraphFunction",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "read"
+        ]
+      }
+    },
+    "/graphinfo": {
+      "name": "/graphinfo",
+      "lambdaFunction": "GraphDbFunction",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
     }
   }
 }

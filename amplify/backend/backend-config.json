@@ -17,6 +17,22 @@
           ],
           "category": "function",
           "resourceName": "databaseFunction"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "GraphFunction"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "GraphDbFunction"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -50,6 +66,30 @@
     }
   },
   "function": {
+    "GraphDbFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "Graph"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "GraphFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "databaseFunction": {
       "build": true,
       "dependsOn": [
@@ -77,6 +117,38 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_GraphDbFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GraphDbFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_GraphDbFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GraphDbFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_GraphFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GraphFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_GraphFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GraphFunction"
+        }
+      ]
+    },
     "AMPLIFY_function_databaseFunction_deploymentBucketName": {
       "usedBy": [
         {
@@ -111,6 +183,10 @@
     }
   },
   "storage": {
+    "Graph": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
     "items": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
